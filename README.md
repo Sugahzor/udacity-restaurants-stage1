@@ -7,6 +7,7 @@ The tool: Mobile Web Specialist Nanodegree Program from [Udacity](https://www.ud
 
 #### Documentation
 [Udacity](https://eu.udacity.com/) - great courses
+
 [IndexedDB Promised](https://github.com/jakearchibald/idb) - IndexedDB, but with promises
 
 
