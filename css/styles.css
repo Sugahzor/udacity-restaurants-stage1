@@ -83,7 +83,7 @@ section {
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
-  max-width: 1200px;
+  max-width: 1800px;
   margin: 0 auto;
 }
 
@@ -267,7 +267,7 @@ nav h1 a:hover {
   border-bottom: 2px solid #cccccc;
 }
 
-#restaurants-list li h1 {
+#restaurants-list li h3 {
   color: #b34f00;
   letter-spacing: 0;
   line-height: 1.2em;
@@ -391,7 +391,7 @@ nav h1 a:hover {
   border-bottom: 1px solid #ffffff;
 }
 
-#reviews-container h2 {
+#reviews-container h4 {
   color: #b34f00;
   font-size: 24pt;
   font-weight: 300;
@@ -524,7 +524,7 @@ nav h1 a:hover {
     width: 100%;
   }
 
-  #reviews-container h2 {
+  #reviews-container h4 {
     text-align: center;
   }
 }
@@ -613,7 +613,7 @@ nav h1 a:hover {
     padding: 5px;
   }
 
-  #restaurants-list li h1 {
+  #restaurants-list li h3 {
     font-size: 1.3em;
   }
 

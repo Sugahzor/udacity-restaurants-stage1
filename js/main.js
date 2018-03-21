@@ -1,7 +1,6 @@
 let restaurants, neighborhoods, cuisines;
 var map;
 var markers = [];
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -12,9 +11,10 @@ document.addEventListener("DOMContentLoaded", event => {
   if (navigator.serviceWorker) {
     navigator.serviceWorker
       .register("sw.js")
-      .then(() => console.log("SW registered"))
+      .then((registration) => console.log("SW registered", registration))
       .catch(e => console.log("Registration failed :(", e));
   }
+
   fetchNeighborhoods();
   fetchCuisines();
   /* Added for working offline */
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", event => {
  * Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
+
   DBHelper.fetchNeighborhoods((error, neighborhoods) => {
     if (error) {
       // Got an error
@@ -33,15 +34,16 @@ fetchNeighborhoods = () => {
       self.neighborhoods = neighborhoods;
       fillNeighborhoodsHTML();
     }
-  });
-};
+  });  
+ };
+
 
 /**
  * Set neighborhoods HTML.
  */
 fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById("neighborhoods-select");
-  neighborhoods.forEach(neighborhood => {
+  neighborhoods.forEach(neighborhood => {    
     const option = document.createElement("option");
     if (localStorage.getItem("neighborhood") === neighborhood) {
       option.setAttribute("selected", "selected");
@@ -76,7 +78,8 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     const option = document.createElement("option");
     /* Set the options user selected before navigating away from index.html, once he returns to it by hitting 'back' */
     if (localStorage.getItem("cuisine") === cuisine) {
-      option.setAttribute("selected", "selected");
+      option.setAttribute("selected", "selected");      
+      localStorage.clear();
     }
     option.innerHTML = cuisine;
     option.value = cuisine;
@@ -131,7 +134,6 @@ updateRestaurants = () => {
       nIndex = localStorage.getItem("neighbIndex");
       neighborhood = localStorage.getItem("neighborhood");
       nSelect.value = neighborhood;
-      localStorage.clear();
     }
   }
   /* If any data in localStorage, means user navigated back to main page from restaurant.html; else just use his current selection */
@@ -197,12 +199,12 @@ createRestaurantHTML = restaurant => {
   const li = document.createElement("li");
   li.setAttribute("aria-label", "restaurant details");
   const image = document.createElement("img");
-  image.setAttribute("alt", "");
+  image.setAttribute("alt", "restaurant presentation photo");
   image.className = "restaurant-img";
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
-  const name = document.createElement("h1");
+  const name = document.createElement("h3");
   name.innerHTML = restaurant.name;
   li.append(name);
 
