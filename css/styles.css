@@ -168,7 +168,7 @@ nav h1 a:hover {
 #map {
   height: 400px;
   background-color: #cccccc;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -532,7 +532,7 @@ nav h1 a:hover {
 @media screen and (min-width: 577px) and (max-width: 767px) {
   /* HOME PAGE */
   #map {
-    width: 90%;
+    width: 100%;
   }
 
   .filter-options h2 {
@@ -604,7 +604,9 @@ nav h1 a:hover {
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
   /* HOME PAGE */
-  #map,
+  #map {
+    width: 100%;
+  }
   #restaurants-list {
     width: 90%;
   }

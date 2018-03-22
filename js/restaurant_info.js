@@ -3,12 +3,6 @@ var map;
 
 /* Added for working offline */
 document.addEventListener("DOMContentLoaded", event => {
-  if (navigator.serviceWorker) {
-    navigator.serviceWorker
-      .register("sw.js")
-      .then(registration => console.log("SW registered", registration))
-      .catch(e => console.log("Registration failed :(", e));
-  }
   fetchRestaurantFromURL(restaurant => {
     fillBreadcrumb();
   });
@@ -89,7 +83,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  */
 fillRestaurantHoursHTML = (
   operatingHours = self.restaurant.operating_hours
-) => { 
+) => {
   const hours = document.getElementById("restaurant-hours");
   for (let key in operatingHours) {
     const row = document.createElement("tr");
@@ -162,7 +156,7 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
   const breadcrumb = document.getElementById("breadcrumb");
   const li = document.createElement("li");
   li.innerHTML = restaurant.name;
-  li.setAttribute("aria-current", "page")
+  li.setAttribute("aria-current", "page");
   breadcrumb.appendChild(li);
 };
 

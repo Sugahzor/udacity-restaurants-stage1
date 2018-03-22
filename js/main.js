@@ -5,16 +5,6 @@ var markers = [];
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener("DOMContentLoaded", event => {
-/**
-*     Service Worker init
-*/
-  if (navigator.serviceWorker) {
-    navigator.serviceWorker
-      .register("sw.js")
-      .then((registration) => console.log("SW registered", registration))
-      .catch(e => console.log("Registration failed :(", e));
-  }
-
   fetchNeighborhoods();
   fetchCuisines();
   /* Added for working offline */
@@ -25,7 +15,6 @@ document.addEventListener("DOMContentLoaded", event => {
  * Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
-
   DBHelper.fetchNeighborhoods((error, neighborhoods) => {
     if (error) {
       // Got an error
@@ -34,16 +23,15 @@ fetchNeighborhoods = () => {
       self.neighborhoods = neighborhoods;
       fillNeighborhoodsHTML();
     }
-  });  
- };
-
+  });
+};
 
 /**
  * Set neighborhoods HTML.
  */
 fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById("neighborhoods-select");
-  neighborhoods.forEach(neighborhood => {    
+  neighborhoods.forEach(neighborhood => {
     const option = document.createElement("option");
     if (localStorage.getItem("neighborhood") === neighborhood) {
       option.setAttribute("selected", "selected");
@@ -78,12 +66,12 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     const option = document.createElement("option");
     /* Set the options user selected before navigating away from index.html, once he returns to it by hitting 'back' */
     if (localStorage.getItem("cuisine") === cuisine) {
-      option.setAttribute("selected", "selected");      
+      option.setAttribute("selected", "selected");
       localStorage.clear();
     }
     option.innerHTML = cuisine;
     option.value = cuisine;
-    select.append(option);    
+    select.append(option);
   });
 };
 
@@ -124,8 +112,7 @@ updateRestaurants = () => {
       cIndex = localStorage.getItem("cuisIndex");
       cuisine = localStorage.getItem("cuisine");
       console.log(cSelect);
-      
-    };
+    }
 
     if (nIndex >= 0) {
       localStorage.setItem("neighbIndex", nIndex);
@@ -137,8 +124,12 @@ updateRestaurants = () => {
     }
   }
   /* If any data in localStorage, means user navigated back to main page from restaurant.html; else just use his current selection */
-  if (!cuisine) {cuisine = cSelect[cIndex].value}
-  if (!neighborhood) {neighborhood = nSelect[nIndex].value}
+  if (!cuisine) {
+    cuisine = cSelect[cIndex].value;
+  }
+  if (!neighborhood) {
+    neighborhood = nSelect[nIndex].value;
+  }
 
   /* TODO: FIX SELECT VALUE DISPLAY;  */
 
@@ -175,7 +166,7 @@ resetRestaurants = restaurants => {
 /**
  * Create all restaurants HTML (including no-results element) and add them to the webpage.
  */
-fillRestaurantsHTML = (restaurants = self.restaurants) => {  
+fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById("restaurants-list");
   ul.setAttribute("tabindex", "0");
   ul.setAttribute("aria-label", "restaurants list");
@@ -199,7 +190,7 @@ createRestaurantHTML = restaurant => {
   const li = document.createElement("li");
   li.setAttribute("aria-label", "restaurant details");
   const image = document.createElement("img");
-  image.setAttribute("alt", "restaurant presentation photo");
+  image.setAttribute("alt", `${restaurant.name}'s restaurant photo`);
   image.className = "restaurant-img";
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
