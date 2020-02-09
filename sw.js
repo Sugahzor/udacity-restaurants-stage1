@@ -1,8 +1,8 @@
-let staticCacheName = "restaurants-static-v3";
+let staticCacheName = "restaurants-static-v4.1.2";
 let urlsToCache = [
   "./",
   "./sw_registration.js",
-  "index.html",  
+  "index.html",
   "restaurant.html",
   "css/styles.css",
   "data/restaurants.json",

@@ -9,6 +9,20 @@ document.addEventListener("DOMContentLoaded", event => {
   fetchCuisines();
   /* Added for working offline */
   updateRestaurants();
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications
+  // START A WEBSOCKET AND CONNECT TO THE ws://localhost:8999 SERVER
+  let restaurantsSocket = new WebSocket("ws://localhost:8999");
+  restaurantsSocket.onopen = () => {
+    let messageForServer = {
+      message: "Client sais hello!"
+    }
+    restaurantsSocket.send(JSON.stringify(messageForServer));
+    console.log("WS connection opened");
+  };
+  restaurantsSocket.onmessage = (event => {
+    console.log("Message from server: " , event.data);
+  });
 });
 
 /**
@@ -111,7 +125,6 @@ updateRestaurants = () => {
     } else {
       cIndex = localStorage.getItem("cuisIndex");
       cuisine = localStorage.getItem("cuisine");
-      console.log(cSelect);
     }
 
     if (nIndex >= 0) {
