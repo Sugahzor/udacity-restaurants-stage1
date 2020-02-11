@@ -200,13 +200,37 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  * Create restaurant HTML.
  */
 createRestaurantHTML = restaurant => {
+  let file = DBHelper.imageUrlForRestaurant(restaurant);
+  //extract the filename up to the extension
+  let fileName = file.slice(0, file.indexOf("."));
+  //extract the extension
+  let fileExtension = file.slice(file.indexOf(".")+1, file.length);
+
   const li = document.createElement("li");
   li.setAttribute("aria-label", "restaurant details");
+
+  const picture = document.createElement("picture");
+
+  const mdSource = document.createElement("source");
+  mdSource.setAttribute("srcset", `${fileName}-xs.${fileExtension}`);
+  mdSource.setAttribute("media", "(min-width: 577px)");
+  const smSource = document.createElement("source");
+  smSource.setAttribute("srcset", `${fileName}-sm.${fileExtension}`);
+  smSource.setAttribute("media", "(max-width: 577px)");
+  const xsSource = document.createElement("source");
+  xsSource.setAttribute("srcset", `${fileName}-xs.${fileExtension}`);
+  xsSource.setAttribute("media", "(max-width: 420px)");
+
   const image = document.createElement("img");
   image.setAttribute("alt", `${restaurant.name}'s restaurant photo`);
-  image.className = "restaurant-img";
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  image.className = "lazy restaurant-img";
+  image.src = file;
+
+  picture.append(xsSource);
+  picture.append(smSource);
+  picture.append(mdSource);
+  picture.append(image);
+  li.append(picture);
 
   const name = document.createElement("h3");
   name.innerHTML = restaurant.name;

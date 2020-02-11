@@ -5,12 +5,26 @@
   <title>Restaurant Info</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
+  <meta name="theme-color" content="#333333"/>
   <!-- Normalize.css for better cross-browser consistency -->
-  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <link preload rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
-  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link
+      rel="preload"
+      href="css/styles.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript><link rel="stylesheet" href="styles.css"/></noscript>
+    <link
+      rel="preload"
+      href="css/details.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript><link rel="stylesheet" href="css/details.min.css"/></noscript>
   <link rel="manifest" href="manifest.webmanifest">
-
+  <link rel="apple-touch-icon" href="/img/menu.png">
 </head>
 
 <body class="inside">
@@ -70,13 +84,13 @@
 
   <!-- Beginning scripts -->
   <!-- Database helpers -->
-  <script type="text/javascript" src="js/dbhelper.js"></script>
+  <script type="text/javascript" src="js/dbhelper.min.js"></script>
   <!-- Main javascript file -->
   <script type="text/javascript" src="js/restaurant_info.js"></script>
   <!-- Service Worker Registration -->
   <script type="application/javascript" src="/sw_registration.js"></script>
   <!-- Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgBrxO3GXUAHRV-UxwsAQaduQn_bMxLg&libraries=places&callback=initMap"></script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEgBrxO3GXUAHRV-UxwsAQaduQn_bMxLg&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
 
 </body>
